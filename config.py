@@ -2,7 +2,6 @@ import configparser
 
 def write(config):
 
-
     filename=input("input filename:\n")
     while True:
         section=input("select section, press enter to exit\n")

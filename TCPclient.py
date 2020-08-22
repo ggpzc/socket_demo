@@ -1,6 +1,10 @@
-
+# file supported
 support={
-    'windows_terminal': 'Microsoft.WindowsTerminalPreview_1.0.1402.0_8wekyb3d8bbwe.msixbundle'
+    'windows_terminal': 'Microsoft.WindowsTerminalPreview_1.0.1402.0_8wekyb3d8bbwe.msixbundle',
+    'typora': 'typora-setup-x64.exe',
+    'vpn': 'v2rayN.zip',
+    'vscode': 'VSCodeUserSetup-x64-1.46.1.exe',
+    'chrome': 'ChromeSetup.exe'
 }
 
 
@@ -12,7 +16,7 @@ import os
 import sys
 import time
 
-servername='59.78.18.73'
+servername='47.105.54.172'
 serverport=12000
 buffersize=1024
 
@@ -23,6 +27,7 @@ sentence=input("input:")
 clientSocket.send(sentence.encode())
 
 head_struct = clientSocket.recv(4)
+
 
 head_len = struct.unpack('i', head_struct)[0]                       # 解析出报头的字符串大小
 data = clientSocket.recv(head_len)                                  # 接收长度为head_len的报头内容的信息 (包含文件大小,文件名的内容)
@@ -37,7 +42,9 @@ recv_len = 0
 recv_mesg = b''
 old = time.time()
 f = open(support[filename], 'wb')
+process=0
 while recv_len < filesize_b:                                        # 每次最多传输buffersize长度，最后一次传完整个文件
+    process+=1
     if filesize_b - recv_len > buffersize:
 
         recv_mesg = clientSocket.recv(buffersize)
@@ -48,8 +55,8 @@ while recv_len < filesize_b:                                        # 每次最�
         recv_len += len(recv_mesg)
         f.write(recv_mesg)
 
-
-    print("{}/{}".format(recv_len,filesize_b))
+    if process%100==0:
+        print("done: {}/{}".format(recv_len,filesize_b))
 
 
 now=time.time()

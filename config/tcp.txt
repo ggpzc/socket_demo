@@ -1,3 +1,5 @@
 [filepath]
+typora = D:\software\typora\typora-setup-x64.exe
+vscode = D:\software\vscode\VSCodeUserSetup-x64-1.46.1.exe
 windows_terminal = D:\software\terminal\Microsoft.WindowsTerminalPreview_1.0.1402.0_8wekyb3d8bbwe.msixbundle
-
+vpn = D:\software\v2rayN\v2rayN.zip

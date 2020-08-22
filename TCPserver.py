@@ -18,6 +18,11 @@ while True:
     connectionSocket,addr=serverSocket.accept()
     filename=connectionSocket.recv(1024).decode()
 
+    if filename not in config['filepath']:
+        connectionSocket.send('NOOO'.encode())
+        connectionSocket.close()
+        continue
+
     filepath=config['filepath'][filename]
     filesize=os.path.getsize(filepath)
 
